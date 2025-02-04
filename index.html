@@ -2,18 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
     <script>
-        const userLang = navigator.language || navigator.userLanguage;
-        if (userLang.toLowerCase().startsWith("pt")) {  // Covers "pt-BR" and "pt"
-            window.location.href = "br.html";
-        } else {
-            window.location.href = "en.html";
-        }
+        (function() {
+            // Get browser's preferred languages with fallback
+            const getBrowserLanguages = () => {
+                if (navigator.languages) {
+                    return navigator.languages;
+                }
+                return [
+                    navigator.language ||
+                    navigator.userLanguage ||
+                    navigator.browserLanguage ||
+                    'en'
+                ];
+            };
+
+            // Normalize language tags and check for Brazilian Portuguese
+            const checkBrazilianPortuguese = (langs) => {
+                return langs.some(lang => {
+                    // Normalize language tag to lowercase
+                    const normalized = lang.toLowerCase();
+                    return normalized === 'pt-br' || normalized === 'pt_br';
+                });
+            };
+
+            // Perform redirection
+            const languages = getBrowserLanguages();
+            const isBrazilian = checkBrazilianPortuguese(languages);
+            window.location.href = isBrazilian ? 'br.html' : 'en.html';
+        })();
     </script>
 </head>
 <body>
-    <p>If you are not redirected, <a href="en.html">click here</a>.</p>
+    <!-- Fallback content if JavaScript is disabled -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=en.html">
+    </noscript>
 </body>
 </html>
