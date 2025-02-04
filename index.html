@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Redirect</title>
     <script>
-        (function() {
-            const lang = navigator.language.toLowerCase();
-            const langRedirected = localStorage.getItem("languageRedirected");
+        const lang = navigator.language.toLowerCase();
+        const langRedirected = localStorage.getItem("languageRedirected");
 
-            if ((lang.startsWith('pt') || lang === 'pt-br') && !langRedirected) {
-                localStorage.setItem("languageRedirected", "true");
-                window.location.href = 'br.html';
-            } else {
-                window.location.href = 'en.html';
-            }
-        })();
+        if (lang.includes('pt') && (langRedirected === null || langRedirected === "false")) {
+            localStorage.setItem("languageRedirected", "true");
+            window.location.href = 'br.html';
+        } else {
+            window.location.href = 'en.html';
+        }
     </script>
 </head>
 <body>
