@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <script>
         (function() {
-            // Get browser's preferred languages with fallback
             const getBrowserLanguages = () => {
-                if (navigator.languages) {
-                    return navigator.languages;
-                }
-                return [
+                return navigator.languages || [
                     navigator.language ||
                     navigator.userLanguage ||
                     navigator.browserLanguage ||
@@ -17,26 +13,22 @@
                 ];
             };
 
-            // Normalize language tags and check for Brazilian Portuguese
             const checkBrazilianPortuguese = (langs) => {
                 return langs.some(lang => {
-                    // Normalize language tag to lowercase
                     const normalized = lang.toLowerCase();
                     return normalized === 'pt-br' || normalized === 'pt_br';
                 });
             };
 
-            // Perform redirection
             const languages = getBrowserLanguages();
             const isBrazilian = checkBrazilianPortuguese(languages);
-            window.location.href = isBrazilian ? 'br' : 'en';
+            window.location.href = isBrazilian ? '/br/' : '/en/';
         })();
     </script>
 </head>
 <body>
-    <!-- Fallback content if JavaScript is disabled -->
     <noscript>
-        <meta http-equiv="refresh" content="0; url=en">
+        <meta http-equiv="refresh" content="0; url=/en/">
     </noscript>
 </body>
 </html>
