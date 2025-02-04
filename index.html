@@ -2,41 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Redirect</title>
     <script>
         (function() {
-            // Get browser's preferred languages with fallback
-            const getBrowserLanguages = () => {
-                if (navigator.languages) {
-                    return navigator.languages;
-                }
-                return [
-                    navigator.language ||
-                    navigator.userLanguage ||
-                    navigator.browserLanguage ||
-                    'en'
-                ];
-            };
+            const lang = navigator.language.toLowerCase();
+            const langRedirected = localStorage.getItem("languageRedirected");
 
-            // Normalize language tags and check for Brazilian Portuguese
-            const checkBrazilianPortuguese = (langs) => {
-                return langs.some(lang => {
-                    // Normalize language tag to lowercase
-                    const normalized = lang.toLowerCase();
-                    return normalized === 'pt-br' || normalized === 'pt_br';
-                });
-            };
-
-            // Perform redirection
-            const languages = getBrowserLanguages();
-            const isBrazilian = checkBrazilianPortuguese(languages);
-            window.location.href = isBrazilian ? 'br.html' : 'en.html';
+            if ((lang.startsWith('pt') || lang === 'pt-br') && !langRedirected) {
+                localStorage.setItem("languageRedirected", "true");
+                window.location.href = 'br.html';
+            } else {
+                window.location.href = 'en.html';
+            }
         })();
     </script>
 </head>
 <body>
-    <!-- Fallback content if JavaScript is disabled -->
     <noscript>
         <meta http-equiv="refresh" content="0; url=en.html">
     </noscript>
+    <p>Redirecting...</p>
 </body>
 </html>
