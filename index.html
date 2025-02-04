@@ -6,7 +6,7 @@
     <title>Redirecting...</title>
     <script>
         const userLang = navigator.language || navigator.userLanguage;
-        if (userLang.startsWith("pt-BR")) {
+        if (userLang.toLowerCase().startsWith("pt")) {  // Covers "pt-BR" and "pt"
             window.location.href = "br.html";
         } else {
             window.location.href = "en.html";
