@@ -29,14 +29,14 @@
             // Perform redirection
             const languages = getBrowserLanguages();
             const isBrazilian = checkBrazilianPortuguese(languages);
-            window.location.href = isBrazilian ? 'br.html' : 'en.html';
+            window.location.href = isBrazilian ? 'br' : 'en';
         })();
     </script>
 </head>
 <body>
     <!-- Fallback content if JavaScript is disabled -->
     <noscript>
-        <meta http-equiv="refresh" content="0; url=en.html">
+        <meta http-equiv="refresh" content="0; url=en">
     </noscript>
 </body>
 </html>
